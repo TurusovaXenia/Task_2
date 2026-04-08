@@ -26,7 +26,7 @@ class TestCreateUser:
     @pytest.mark.parametrize("empty_field", ["email", "password", "name"])
     def test_create_user_empty_fields_shows_error(self, user_client, empty_field):
         user_data = data.valid_user_data.copy()
-        user_data[empty_field] = ''
+        user_data[empty_field] = ""
         response = user_client.create_user(user_data)
         res_json = response.json()
 

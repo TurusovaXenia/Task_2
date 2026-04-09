@@ -6,3 +6,4 @@ class Endpoints:
     UPDATE_USER = "/api/auth/user"
     CREATE_ORDER = "/api/orders"
     GET_INGREDIENTS = "/api/ingredients"
+    GET_ORDERS_FOR_USER = "/api/orders"

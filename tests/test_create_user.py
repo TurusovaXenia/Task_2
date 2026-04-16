@@ -23,13 +23,16 @@ class TestCreateUser:
 
     @allure.title("Создание пользователя, который уже зарегистрирован")
     def test_create_user_duplicate_shows_error(self, user_client, new_user_data, user_cleanup):
-        response = user_client.create_user(new_user_data)
-        user_cleanup.append(response.json().get("accessToken"))
-        response = user_client.create_user(new_user_data)
-        res_json = response.json()
+        with allure.step("Создаем первого пользователя"):
+            response_1 = user_client.create_user(new_user_data)
+            user_cleanup.append(response_1.json().get("accessToken"))
+
+        with allure.step("Создаем второго пользователя с данными первого пользователя"):
+            response_2 = user_client.create_user(new_user_data)
+            res_json = response_2.json()
 
         with allure.step("Проверка кода ответа"):
-            assert response.status_code == 403
+            assert response_2.status_code == 403
 
         with allure.step("Проверка тела ответа"):
             assert res_json.get("success") is False
